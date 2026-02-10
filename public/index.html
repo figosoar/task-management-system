@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>任务管理系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 登录/注册模态框 -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h2 id="authTitle">用户登录</h2>
+                    <div class="hero-logo">⚡</div>
+                </div>
+                
+                <form id="authForm">
+                    <div class="form-group">
+                        <input type="text" id="username" placeholder="用户名" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" placeholder="密码" required>
+                    </div>
+                    <div class="form-group" id="heroNameGroup">
+                        <input type="text" id="heroName" placeholder="显示名称（可选）">
+                    </div>
+                    <button type="submit" id="authSubmit" class="btn-primary">登录</button>
+                </form>
+                
+                <div class="auth-switch">
+                    <span id="authSwitchText">还没有账号？</span>
+                    <a href="#" id="authSwitchLink">立即注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主应用界面 -->
+    <div id="app" class="hidden">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>📋 任务管理中心</h1>
+                <div class="user-info">
+                    <span>欢迎回来，<span id="currentHero"></span></span>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="/admin.html" id="adminLink" class="btn-secondary" style="display: none;">管理后台</a>
+                <button id="logoutBtn" class="btn-secondary">退出</button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="task-board">
+                <div class="column" data-column="todo">
+                    <div class="column-header">
+                        <h3>🎯 待执行任务</h3>
+                        <button class="add-task-btn" data-column="todo">+</button>
+                    </div>
+                    <div class="task-list" id="todoList"></div>
+                </div>
+
+                <div class="column" data-column="progress">
+                    <div class="column-header">
+                        <h3>⚡ 执行中</h3>
+                        <button class="add-task-btn" data-column="progress">+</button>
+                    </div>
+                    <div class="task-list" id="progressList"></div>
+                </div>
+
+                <div class="column" data-column="completed">
+                    <div class="column-header">
+                        <h3>✅ 已完成</h3>
+                        <button class="add-task-btn" data-column="completed">+</button>
+                    </div>
+                    <div class="task-list" id="completedList"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- 统计面板 -->
+        <div class="stats-panel">
+            <div class="stat-item">
+                <span class="stat-label">未完成任务:</span>
+                <span id="pendingCount" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">最长停留:</span>
+                <span id="longestPending" class="stat-value">0天</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 任务创建/编辑模态框 -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">创建新任务</h3>
+                <span class="close">&times;</span>
+            </div>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label>任务标题</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>任务描述</label>
+                    <textarea id="taskDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>优先级</label>
+                    <select id="taskPriority">
+                        <option value="low">🟢 低优先级</option>
+                        <option value="medium" selected>🟡 中优先级</option>
+                        <option value="high">🔴 高优先级</option>
+                        <option value="urgent">🚨 紧急</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelTask">取消</button>
+                    <button type="submit" class="btn-primary">保存任务</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
